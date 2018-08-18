@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    build: .
+    image: chimerast/scdv
+    command: /bin/bash
+    volumes:
+      - ./corpus:/app/corpus
