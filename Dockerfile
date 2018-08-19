@@ -25,7 +25,6 @@ RUN make -j8 && make install
 RUN pip install scikit-learn gensim tqdm
 
 WORKDIR /app
-COPY Makefile .
-COPY src src
+COPY . .
 
 CMD ["/bin/bash"]

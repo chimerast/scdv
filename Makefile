@@ -1,4 +1,4 @@
-BASENAME = corpus/wiki
+BASENAME = corpus/wikipedia
 N = 60
 
 all: $(BASENAME).proba
