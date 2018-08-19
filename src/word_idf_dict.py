@@ -3,12 +3,15 @@
 
 import sys
 import os
+import signal
 import re
 import pickle
 from tqdm import tqdm
 import numpy as np
 from jumanpp import Jumanpp
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 wikiFile = sys.argv[1]
 baseFile = os.path.splitext(wikiFile)[0]

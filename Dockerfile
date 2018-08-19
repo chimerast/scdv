@@ -1,6 +1,9 @@
 FROM python:3.6
 
-RUN apt update && apt install -y cmake
+RUN apt update \
+  && apt install -y cmake \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 RUN git clone https://github.com/facebookresearch/fastText.git
@@ -23,3 +26,5 @@ RUN pip install scikit-learn gensim tqdm
 
 WORKDIR /app
 COPY . .
+
+CMD ["make"]

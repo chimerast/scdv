@@ -3,9 +3,12 @@
 
 import sys
 import os
+import signal
 import pickle
 import gensim
 from sklearn.mixture import GaussianMixture
+
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 n = int(sys.argv[1])
 
