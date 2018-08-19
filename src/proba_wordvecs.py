@@ -26,8 +26,8 @@ word_idf_dict = pickle.load(open(idfFile, 'rb'))
 
 proba_wordvecs = {}
 for word in idx_proba_dict:
+  proba_wordvecs[word] = np.zeros(num_clusters * dimension, dtype=np.float32)
   if word in model and word in idx_proba_dict and word in word_idf_dict:
-    proba_wordvecs[word] = np.zeros(num_clusters * dimension, dtype=np.float32)
     for index in range(0, num_clusters):
       proba_wordvecs[word][index*dimension:(index+1)*dimension] = model[word] * idx_proba_dict[word][index] * word_idf_dict[word]
 
