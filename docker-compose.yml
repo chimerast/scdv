@@ -3,6 +3,7 @@ services:
   app:
     build: .
     image: chimerast/scdv
+    command: make
     volumes:
       - ./corpus:/app/corpus
     init: true
