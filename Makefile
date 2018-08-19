@@ -1,16 +1,23 @@
-BASENAME = corpus/wikipedia
-N = 60
+SHELL := /bin/bash
+PATH := src:$(PATH)
 
-all: $(BASENAME).proba
+BASENAME = corpus/wikipedia
+NUM_CLUSTERS = 60
+DIMENSION = 300
+
+all: $(BASENAME).pvec
+
+$(BASENAME).pvec: $(BASENAME).proba
+	proba_wordvecs.py $(NUM_CLUSTERS) $(DIMENSION) $(BASENAME).proba
 
 $(BASENAME).proba: $(BASENAME).vec
-	./src/idx_proba_dict.py $(N) $(BASENAME).vec
+	idx_proba_dict.py $(NUM_CLUSTERS) $(BASENAME).vec
 
 $(BASENAME).vec: $(BASENAME).norm
-	fasttext skipgram -dim 300 -epoch 10 -minCount 20 -input $(BASENAME).norm -output $(BASENAME)
+	fasttext skipgram -dim $(DIMENSION) -epoch 10 -minCount 20 -input $(BASENAME).norm -output $(BASENAME)
 
 $(BASENAME).norm: $(BASENAME).txt
-	./src/word_idf_dict.py $(BASENAME).txt
+	word_idf_dict.py $(BASENAME).txt
 
 clean:
-	rm $(BASENAME).proba $(BASENAME).vec $(BASENAME).bin $(BASENAME).norm $(BASENAME).idf
+	rm $(BASENAME).{pvec,proba,vec,bin,norm,idf}
