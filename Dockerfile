@@ -10,7 +10,7 @@ WORKDIR /build
 RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git
 
 WORKDIR /build/mecab-ipadic-neologd
-RUN ./bin/install-mecab-ipadic-neologd -y -n -p /var/lib/mecab/dic/ipadic-utf8-neologd
+RUN ./bin/install-mecab-ipadic-neologd -y -n -a -p /var/lib/mecab/dic/ipadic-utf8-neologd
 RUN rm /etc/alternatives/mecab-dictionary \
   && ln -s /var/lib/mecab/dic/ipadic-utf8-neologd /etc/alternatives/mecab-dictionary
 
