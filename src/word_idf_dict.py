@@ -8,6 +8,7 @@ import re
 import pickle
 from tqdm import tqdm
 import numpy as np
+from mecab import MeCab
 from jumanpp import Jumanpp
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -21,7 +22,7 @@ idfFile = baseFile + '.idf'
 wikiStartTag = re.compile('^<doc[^>]*>$')
 wikiEndTag = re.compile('^</doc>$')
 
-jumanpp = Jumanpp()
+analyzer = MeCab()
 
 def tokenize(path):
     file_size = os.path.getsize(path)
@@ -44,7 +45,7 @@ def tokenize(path):
                 else:
                     skip = False
             elif not skip:
-                doc.append(jumanpp.analysis(line))
+                doc.append(analyzer.analysis(line))
 
     pbar.close()
 
