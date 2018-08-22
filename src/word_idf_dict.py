@@ -30,7 +30,7 @@ def tokenize(path):
 
     with open(path, 'r', encoding='utf-8') as file:
         doc = []
-        skip = True
+        skip = False
 
         for line in file:
             pbar.update(len(line.encode()))
@@ -39,13 +39,18 @@ def tokenize(path):
                 doc = []
                 if 'title="Wikipedia:' in line:
                     skip = True
+                elif 'title="Category:' in line:
+                    skip = True
+                elif 'title=ファイル:' in line:
+                    skip = True
             elif wikiEndTag.match(line):
                 if not skip:
                     yield doc
                 else:
                     skip = False
             elif not skip:
-                doc.append(analyzer.analysis(line))
+                if len(line) > 0:
+                    doc.append(analyzer.analysis(line))
 
     pbar.close()
 
